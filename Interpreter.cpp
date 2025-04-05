@@ -38,6 +38,16 @@ std::string Interpreter::visit_Float(Node *node) {
     auto temp = dynamic_cast<Float *>(node);
     return temp -> mValue;
 }
+std::string Interpreter::visit_UnaryOp(Node *node) {
+    auto temp = dynamic_cast<UnaryOp *>(node);
+    if (temp -> mToken -> mType == TokenType::MINUS) {
+        return std::to_string(-std::stof(visit(temp -> mRight_node)));
+    }
+    if (temp -> mToken -> mType == TokenType::BANG) {
+        std::string str = visit(temp -> mRight_node);
+        return str == "true" ? "false" : "true";
+    }
+}
 
 std::string Interpreter::visit(Node *node) {
     if (node -> getType() == "node::BinOp") {
@@ -49,6 +59,17 @@ std::string Interpreter::visit(Node *node) {
     if (node -> getType() == "node::Float") {
         return visit_Float(node);
     }
+    if (node -> getType() == "node::UnaryOp") {
+        return visit_UnaryOp(node);
+    }
+    if (node -> getType() == "node::Bool") {
+        return visit_Bool(node);
+    }
+}
+
+std::string Interpreter::visit_Bool(Node *node) {
+    auto temp = dynamic_cast<Bool *>(node);
+    return temp -> mValue;
 }
 
 

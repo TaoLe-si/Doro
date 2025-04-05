@@ -15,6 +15,8 @@ public:
     static std::string visit_Integer(Node* node);
     static std::string visit_Float(Node* node);
     static std::string visit_BinOp(Node* node);
+    static std::string visit_UnaryOp(Node* node);
+    static std::string visit_Bool(Node* node);
     static std::string visit(Node* node);
     std::string interpret();
 private:

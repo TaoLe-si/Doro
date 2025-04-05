@@ -42,4 +42,23 @@ public:
     Token* mToken;
     std::string mValue;
 };
+
+class UnaryOp: public Node {
+public:
+    explicit UnaryOp(Token* token, Node* right);
+    [[nodiscard]] std::string getType() const override;
+public:
+    Token* mToken;
+    std::string mValue;
+    Node* mRight_node;
+};
+
+class Bool: public Node {
+public:
+    explicit Bool(Token* token);
+    [[nodiscard]] std::string getType() const override;
+public:
+    Token* mToken;
+    std::string mValue;
+};
 #endif //DORO_NODE_H

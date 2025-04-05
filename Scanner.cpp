@@ -41,8 +41,31 @@ std::vector<Token*> Scanner::scan() {
             }
             mList.push_back(new Token(TokenType::INTEGER, integer));
         }
+        if (str >= 'a' && str <= 'z') {
+            long long former = mCurrent;
+            long long latter = consumeAlpha();
+            std::string alpha;
+            alpha.push_back(s[former]);
+            while (former < latter) {
+                former += 1;
+                alpha.push_back(s[former]);
+            }
+            mCurrent += 1;
+            if (alpha == "true") {
+                mList.push_back(new Token(TokenType::TRUE, alpha));
+                continue;
+            }
+            if (alpha == "false") {
+                mList.push_back(new Token(TokenType::FALSE, alpha));
+                continue;
+            }
+            mList.push_back(new Token(TokenType::STRING, alpha));
+        }
         if (str == '+') {
             mList.push_back(new Token(TokenType::PLUS, tem_str));
+        }
+        if (str == '!') {
+            mList.push_back(new Token(TokenType::BANG, tem_str));
         }
         if (str == '-') {
             mList.push_back(new Token(TokenType::MINUS, tem_str));
@@ -91,6 +114,13 @@ char Scanner::advance() {
 long long Scanner::consumeInt() {
     const char* s = mSource.c_str();
     while (s[mCurrent + 1] >= '0' && s[mCurrent + 1] <= '9') {
+        mCurrent += 1;
+    }
+    return mCurrent;
+}
+long long Scanner::consumeAlpha() {
+    const char* s = mSource.c_str();
+    while (s[mCurrent + 1] >= 'a' && s[mCurrent + 1] <= 'z') {
         mCurrent += 1;
     }
     return mCurrent;

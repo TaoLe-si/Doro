@@ -18,6 +18,7 @@ public:
     bool match(char tokenChar);
     char advance();
     long long consumeInt();
+    long long consumeAlpha();
     char consumeDot();
 private:
     std::string mSource;

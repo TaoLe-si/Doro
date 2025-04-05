@@ -39,3 +39,23 @@ Float::Float(Token *token) {
 std::string Float::getType() const {
     return "node::Float";
 }
+
+UnaryOp::UnaryOp(Token* token, Node* right) {
+    mToken = token;
+    mValue = mToken -> mValue;
+    mRight_node = right;
+}
+
+std::string UnaryOp::getType() const {
+    return "node::UnaryOp";
+}
+
+Bool::Bool(Token *token) {
+    mToken = token;
+    mValue = mToken -> mValue;
+}
+
+std::string Bool::getType() const {
+    return "node::Bool";
+}
+

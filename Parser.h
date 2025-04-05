@@ -14,12 +14,16 @@
 class Parser {
 public:
     explicit Parser(std::vector<Token*>& list);
+    Node* primary();
     Node* factor();
+    Node* unary();
     Node* term();
     Node* parse();
-    Node* expr();
+    Node* equality();
+    Node* comparison();
     void consume(TokenType type);
     bool match(TokenType type1, TokenType type2);
+    bool match(TokenType type1, TokenType type2, TokenType type3, TokenType type4);
 private:
     std::vector<Token*> mList;
     long long mCurrent;
